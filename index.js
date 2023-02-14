@@ -1,6 +1,6 @@
-const express=require('express');
-const app=new express();
+// const express=require('express');
+// const app=new express();
 
-app.listen(5000,()=>{
-    console.log("app is runiing 5000")
-})
+// app.listen(3000,()=>{
+//     console.log("app is runiing 3000")
+// })
