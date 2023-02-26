@@ -46,7 +46,8 @@ exports.UserLogin = (req, res) => {
 
 //select profile 
 exports.SelectProfile = (req, res) => {
-    
+    let UserName=req.headers['username']
+     //let UserName="Fun api"
     ProfileModel.find({ UserName: UserName }, (err, data) => {
         if (err) {
             res.status(400).json({ status: "unauthorized" })
@@ -54,8 +55,27 @@ exports.SelectProfile = (req, res) => {
         }
         else {
             res.status(200).json({ status: "success", data: data })
-
+             
         }
     })
 }
 
+// update profile 
+
+exports.UpdateProfile=(req,res)=>{
+    let UserName=req.headers['username']
+    let reqBody = req.body;
+
+    ProfileModel.updateOne({UserName:UserName},{$set:reqBody},{upsert:true},(err,data)=>{
+        if (err) {
+            res.status(400).json({ status: "fail",data:err })
+
+        }
+        else {
+            res.status(200).json({ status: "success", data: data })
+             
+        }
+    })
+    //res.status(200).json(reqBody)
+
+}

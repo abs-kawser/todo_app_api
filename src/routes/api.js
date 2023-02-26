@@ -8,6 +8,7 @@ const router =express.Router();
 router.post("/create-profile",ProfileController.CreateProfile)
 router.post("/UserLogin",ProfileController.UserLogin)
 router.get("/selectProfile",AuthVerifyMiddleware,ProfileController.SelectProfile)
+router.post("/UpdateProfile",AuthVerifyMiddleware,ProfileController.UpdateProfile)
 
 
 module.exports=router;
