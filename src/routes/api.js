@@ -11,6 +11,11 @@ router.get("/selectProfile",AuthVerifyMiddleware,ProfileController.SelectProfile
 router.post("/UpdateProfile",AuthVerifyMiddleware,ProfileController.UpdateProfile)
 
 
+//todo -api
+router.post("/CreateToDo",AuthVerifyMiddleware,ToDoListController.CreateToDo)
+
+
+
 module.exports=router;
 
 //http://localhost:3000/api/v1/UserLogin
