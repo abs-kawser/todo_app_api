@@ -13,9 +13,14 @@ router.post("/UpdateProfile",AuthVerifyMiddleware,ProfileController.UpdateProfil
 
 //todo -api
 router.post("/CreateToDo",AuthVerifyMiddleware,ToDoListController.CreateToDo)
+router.get("/SelectToDo",AuthVerifyMiddleware,ToDoListController.SelectToDo)
+router.post("/UpdateToDo",AuthVerifyMiddleware,ToDoListController.UpdateToDo);
+router.post("/UpdateStatusToDo",AuthVerifyMiddleware,ToDoListController.UpdateStatusToDo);
 
 
-
-module.exports=router;
+ router.post("/RemoveToDo",AuthVerifyMiddleware,ToDoListController.RemoveToDo);
+ router.post("/SelectToDoByStatus",AuthVerifyMiddleware,ToDoListController.SelectToDoByStatus);
+ router.post("/SelectToDoByDate",AuthVerifyMiddleware,ToDoListController.SelectToDoByDate);
+ module.exports=router;
 
 //http://localhost:3000/api/v1/UserLogin

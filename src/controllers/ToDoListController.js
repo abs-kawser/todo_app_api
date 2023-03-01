@@ -27,3 +27,106 @@ exports.CreateToDo=(req,res)=>{
         }
     })
 }
+// slect todo
+exports.SelectToDo=(req,res)=>{
+    let UserName=req.headers['username']
+    ToDoListModel.find({UserName:UserName},(err,data)=>{
+        if(err){
+            res.status(400).json({status:"fail",data:err})
+        }
+        else {
+            res.status(200).json({status:"success",data:data})
+        }
+    })
+}
+//update todo
+exports.UpdateToDo=(req,res)=>{
+
+    let TodoSubject=req.body['TodoSubject']
+    let TodoDescription=  req.body['TodoDescription']
+    let _id=  req.body['_id']
+    let TodoUpdateDate=Date.now();
+
+    let PostBody={
+        TodoSubject:TodoSubject,
+        TodoDescription:TodoDescription,
+        TodoUpdateDate:TodoUpdateDate,
+    }
+
+    ToDoListModel.updateOne({_id:_id},{$set:PostBody},{upsert:true},(err,data)=>{
+        if(err){
+            res.status(400).json({status:"fail",data:err})
+        }
+        else {
+            res.status(200).json({status:"success",data:data})
+        }
+    })
+
+}
+
+//update status 
+exports.UpdateStatusToDo=(req,res)=>{
+
+    let TodoStatus=req.body['TodoStatus']
+    let _id=  req.body['_id']
+    let TodoUpdateDate=Date.now();
+
+    let PostBody={
+        TodoStatus:TodoStatus,
+        TodoUpdateDate:TodoUpdateDate,
+    }
+
+    ToDoListModel.updateOne({_id:_id},{$set:PostBody},{upsert:true},(err,data)=>{
+        if(err){
+            res.status(400).json({status:"fail",data:err})
+        }
+        else {
+            res.status(200).json({status:"success",data:data})
+        }
+    })
+
+}
+//remove todo
+exports.RemoveToDo=(req,res)=>{
+
+    let _id=  req.body['_id']
+
+    ToDoListModel.remove({_id:_id},(err,data)=>{
+        if(err){
+            res.status(400).json({status:"fail",data:err})
+        }
+        else {
+            res.status(200).json({status:"success",data:data})
+        }
+    })
+}
+
+//SelectToDo By Status
+exports.SelectToDoByStatus=(req,res)=>{
+    let UserName=req.headers['username']
+    let TodoStatus=  req.body['TodoStatus']
+    ToDoListModel.find({UserName:UserName,TodoStatus:TodoStatus},(err,data)=>{
+        if(err){
+            res.status(400).json({status:"fail",data:err})
+        }
+        else {
+            res.status(200).json({status:"success",data:data})
+        }
+    })
+}
+
+//SelectToDoBy Date
+exports.SelectToDoByDate=(req,res)=>{
+    let UserName=req.headers['username']
+    let FormDate=  req.body['FormDate']
+    let ToDate=  req.body['ToDate']
+
+    ToDoListModel.find({UserName:UserName,TodoCreateDate:{$gte:new Date(FormDate),$lte:new Date(ToDate)}},(err,data)=>{
+        if(err){
+            res.status(400).json({status:"fail",data:err})
+        }
+        else {
+            res.status(200).json({status:"success",data:data})
+        }
+    })
+}
